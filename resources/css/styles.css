@@ -1,0 +1,13 @@
+.btn-h1-spacing{
+    margin-top: 9px;
+}
+
+.pagination-container{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-allposts{
+    display: flex;
+    justify-content: center;
+}
