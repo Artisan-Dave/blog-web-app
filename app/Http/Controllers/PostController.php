@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -13,9 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
 
-        return view('posts.index')->with('posts',$posts);
+        return view('posts.index')->with('posts', $posts);
     }
 
     /**
@@ -36,10 +37,14 @@ class PostController extends Controller
             'body' => 'required',
         ]);
 
+        // dd($validated);
+        // Generate slug from title
+        $validated['slug'] = Str::slug($request->title);
+
         $post = new Post($validated);
         $post->save();
 
-        Session::flash('success','Blog post successfully save!');
+        Session::flash('success', 'Blog post successfully save!');
 
         return redirect()->route('posts.show', $post->id);
     }
@@ -50,7 +55,7 @@ class PostController extends Controller
     public function show(string $id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.show',compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -59,7 +64,7 @@ class PostController extends Controller
     public function edit(string $id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.edit',compact('post'));
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -73,13 +78,15 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
-        
+
+        $validated['slug'] = Str::slug($request->title);
+
         $post = Post::findOrFail($id);
         $post->update($validated);
-        
-        Session::flash('success','Post successfully updated.');
 
-        return redirect()->route('posts.show',$post->id);
+        Session::flash('success', 'Post successfully updated.');
+
+        return redirect()->route('posts.show', $post->id);
     }
 
     /**
@@ -90,8 +97,8 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         $post->delete();
-        
-        Session::flash('success','Post Deleted Successfully');
+
+        Session::flash('success', 'Post Deleted Successfully');
 
         return redirect()->route('posts.index');
     }

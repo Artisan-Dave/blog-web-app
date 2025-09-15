@@ -18,7 +18,7 @@
                     <a class="nav-link {{ Request::is('contact') ? "active" : "" }}" href="/contact">Contact</a>
                 </li>
             </ul>
-            <div class="nav-item dropdown me-4">
+            <div class="nav-item dropdown me-5">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     My Account
