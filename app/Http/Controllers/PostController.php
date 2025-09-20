@@ -38,8 +38,6 @@ class PostController extends Controller
         ]);
 
         // dd($validated);
-        // Generate slug from title
-        $validated['slug'] = Str::slug($request->title);
 
         $post = new Post($validated);
         $post->save();
@@ -78,8 +76,6 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
-
-        $validated['slug'] = Str::slug($request->title);
 
         $post = Post::findOrFail($id);
         $post->update($validated);

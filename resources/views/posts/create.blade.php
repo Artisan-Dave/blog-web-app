@@ -17,7 +17,7 @@
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" maxlength="255" required>
-                    {{-- <input type="hidden" id="slug" name="slug"> --}}
+                   
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Body</label>
