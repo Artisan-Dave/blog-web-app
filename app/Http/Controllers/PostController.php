@@ -42,7 +42,7 @@ class PostController extends Controller
         $post = new Post($validated);
         $post->save();
 
-        Session::flash('success', 'Blog post successfully save!');
+        session::flash('success', 'Blog post successfully save!');
 
         return redirect()->route('posts.show', $post->id);
     }

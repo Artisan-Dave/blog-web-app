@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title',"| $post->title")
+@section('title',"| htmlspecialchars($post->title)")
 
 @section('content')
 

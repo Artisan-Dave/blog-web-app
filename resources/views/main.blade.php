@@ -7,7 +7,7 @@
 
     <body>
         @include('partials._nav')
-
+        
         <div class="container mt-5">
             @include('partials._messages')
             @yield('content')
