@@ -7,8 +7,8 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <div class="bg-light">
-                    <h1>Welcome to my Blog</h1>
+                <div class="bg-light mx-auto p-2">
+                    <h1>Welcome {{ Auth::user()->name ?? 'Guest' }}</h1>
                     <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod nobis non, corrupti deserunt repudiandae cupiditate soluta. Excepturi, corporis. Molestias, illo earum totam odit eum similique impedit aperiam libero quas.
                     </p>
                     <p><a href="" class="btn btn-primary btn-lg">Latest Post</a></p>

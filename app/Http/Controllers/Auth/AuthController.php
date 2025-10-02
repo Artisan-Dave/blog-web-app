@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Post;
 
 class AuthController extends Controller
 {
     public function getLogin(){
+
 
         return view('auth.login');
     }
@@ -34,6 +36,36 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return view('main'); // adjust to your route
+        //  $posts = Post::latest()->get();
+
+        return redirect('/');
+    }
+
+    public function postLogin(Request $request){
+        $credentials = $request->validate([
+            'email' => ['required','email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)){
+            //regenerate session to prevent fixation attacks
+            // dd('Login worked! User:', Auth::user());
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+
+        //login failed
+        return back()->withErrors([
+            'email' => 'Provided credentials do not match our records.',
+        ]);
+
+    }
+
+    public function getLogout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

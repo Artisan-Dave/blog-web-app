@@ -12,6 +12,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);

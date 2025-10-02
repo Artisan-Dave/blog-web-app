@@ -6,11 +6,11 @@
 
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form action="">
+            <form action="{{ route('auth.login') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email">
+                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword5" class="form-label">Password</label>
