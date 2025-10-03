@@ -24,19 +24,23 @@
                 </li>
             </ul>
             <div class="nav-item dropdown me-5">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    My Account
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{{ route('posts.index') }}">Posts</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><button class="dropdown-item" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Logout</button></li>
-                </ul>
+                @if (Auth::check())
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Hello {{ Auth::user()->name }} 
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ route('posts.index') }}">Posts</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><button class="dropdown-item" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">Logout</button></li>
+                    </ul>
+                @else
+                    <a href="{{ route('auth.login') }}" class="btn btn-link">Login</a>
+
+                @endif
             </div>
             {{-- Logout Modal --}}
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -53,7 +57,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form class="btn btn-danger" method="POST" action="{{ route('auth.logout') }}">Yes</form>
+                            <a href="{{ route('auth.logout') }}" class="btn btn-danger">Logout</a>
                         </div>
                     </div>
                 </div>
