@@ -2,11 +2,15 @@
 
 @section('title', '| Login')
 
+@section('stylesheets')
+    @vite('resources/css/parsley.css')
+@endsection
+
 @section('content')
 
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form action="{{ route('auth.login') }}" method="POST">
+            <form action="{{ route('auth.login') }}" method="POST" class="validate">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
@@ -24,12 +28,14 @@
                         <label for="checkbox" class="form-text">Remember me</label>
                     </div>
                 </div>
+                <a href="{{ url('password/reset') }}" class="btn btn-link">Forgot Password</a>
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary" type="submit">
                         Login
                     </button>
                 </div>
             </form>
+            
         </div>
     </div>
 
