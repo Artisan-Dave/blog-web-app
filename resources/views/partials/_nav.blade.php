@@ -30,12 +30,19 @@
                         Hello {{ Auth::user()->name }} 
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ route('posts.index') }}">Posts</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('posts.index') }}">Posts</a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><button class="dropdown-item" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Logout</button></li>
+                        <li>
+                            <a href="{{ route('categories.index') }}" class="dropdown-item">Categories</a>
+                        </li>
+                        <li>
+                            <button class="dropdown-item" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">Logout</button>
+                        </li>
                     </ul>
                 @else
                     <a href="{{ route('auth.login') }}" class="btn btn-link">Login</a>

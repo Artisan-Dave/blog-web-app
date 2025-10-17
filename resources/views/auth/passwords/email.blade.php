@@ -19,7 +19,7 @@
                         
                         <div class="mb-3">
                             <label for="email" class="form-label">Email: </label>
-                            <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" placeholder="example@gmail.com" required>
+                            <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" placeholder="example@gmail.com">
                         </div>
                         @error('email')
                             <small class="text-danger">{{ $message }}</small>
@@ -31,4 +31,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @vite(['resources/js/validation.js'])
 @endsection

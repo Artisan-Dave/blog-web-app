@@ -36,7 +36,7 @@
                     <th>Action</th>
                 </thead>
                 <tbody>
-                    @foreach ($posts as $post)
+                    @forelse ($posts as $post)
                         <tr>
                             <th>
                                 {{ $post->id }}
@@ -54,8 +54,12 @@
                                 <a href="{{route('posts.show',$post->id)}}" class="btn btn-light">View</a>
                                 <a href="{{route('posts.edit',$post->id)}}" class="btn btn-light">Edit</a>
                             </td>
+                            @empty
+                            <div class="form-label text-center">
+                                No post created!
+                            </div>
                         </tr>
-                    @endforeach
+                    @endforelse
                 </tbody>
             </table>
         </div>

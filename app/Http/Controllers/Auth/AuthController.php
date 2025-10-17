@@ -4,12 +4,24 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
 
-class AuthController extends Controller
+class AuthController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth',only: ['getLogout']),
+            // You can also limit middleware to certain methods:
+            // new Middleware('auth', only: ['create', 'store', 'edit', 'update', 'destroy']),
+            new Middleware('guest', only: ['getLogin','postLogin','getRegister','getpostRegister']),
+        ];
+    }
+
     public function getLogin(){
 
 

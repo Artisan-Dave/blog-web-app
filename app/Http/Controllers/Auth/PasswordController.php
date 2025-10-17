@@ -8,9 +8,20 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PasswordController extends Controller
+class PasswordController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('guest'),
+            // You can also limit middleware to certain methods:
+            // new Middleware('auth', only: ['create', 'store', 'edit', 'update', 'destroy']),
+        ];
+    }
+
     public function forgotPassword(Request $request){
         
         return view('auth.passwords.email');
