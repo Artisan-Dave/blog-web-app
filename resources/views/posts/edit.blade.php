@@ -22,6 +22,15 @@
                     <label for="body" class="form-label">Body</label>
                     <textarea class="form-control" id="body" style="height: 100px" placeholder="Enter text" name="body" required>{{ $post->body }}</textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="category_id" class="form-label">Category</label>
+                    <select class="form-select" name="category_id">
+                        <option selected value="{{ $post->category_id }}">{{ $post->category->name }}</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div class="col-md-4 bg-light">
                 <div class="well">

@@ -16,12 +16,21 @@
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" maxlength="255" required>
+                    <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" maxlength="255" >
                    
                 </div>
                 <div class="mb-3">
+                    <label for="category_id" class="form-label">Category</label>
+                    <select class="form-select" name="category_id">
+                        <option selected disabled value="">-- Select Category --</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label for="body" class="form-label">Body</label>
-                    <textarea class="form-control" id="body" style="height: 100px" placeholder="Enter text" name="body" required></textarea>
+                    <textarea class="form-control" id="body" style="height: 100px" placeholder="Enter text" name="body" ></textarea>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-success btn-lg ">Create New Post</button>

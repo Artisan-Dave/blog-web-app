@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use App\Models\Category;
 use Illuminate\Support\Str;
 
 class PostController extends Controller implements HasMiddleware
@@ -36,7 +37,9 @@ class PostController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+
+        return view('posts.create')->with('categories',$categories);
     }
 
     /**
@@ -46,6 +49,7 @@ class PostController extends Controller implements HasMiddleware
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'category_id' => 'required|integer',
             'body' => 'required',
         ]);
 
@@ -74,7 +78,8 @@ class PostController extends Controller implements HasMiddleware
     public function edit(string $id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('posts.edit', compact('post','categories'));
     }
 
     /**
@@ -87,14 +92,13 @@ class PostController extends Controller implements HasMiddleware
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required|string',
+            'category_id' => 'required|integer'
         ]);
 
         $post = Post::findOrFail($id);
         $post->update($validated);
 
-        Session::flash('success', 'Post successfully updated.');
-
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->id)->with('success','Post successfully updated.');
     }
 
     /**

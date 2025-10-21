@@ -9,7 +9,7 @@
             <h1>{{ $post->title }}</h1>
             <p>{{ $post->body }}</p>
             <hr>
-            <p>Posted In: {{ $post->category ? $post->category->name : '' }} {{ $post->category ? $post->category->created_at->format('M j, Y g:i A') : ''}}</p>
+            <p>Posted In: {{ $post->category ? $post->category->name : '' }} {{ $post ? $post->created_at->format('M j, Y g:i A') : ''}}</p>
         </div>
     </div>
 
