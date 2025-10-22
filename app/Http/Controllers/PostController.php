@@ -110,8 +110,6 @@ class PostController extends Controller implements HasMiddleware
 
         $post->delete();
 
-        Session::flash('success', 'Post Deleted Successfully');
-
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('success','Post Deleted Successfully');
     }
 }
