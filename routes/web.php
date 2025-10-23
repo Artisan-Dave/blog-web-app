@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 //Auth Routes
@@ -33,9 +34,10 @@ Route::get('/check', function () {
         ];
     });
 
+Route::resource('tags',TagController::class)->except(['create']);
+
 //Categories
 Route::resource('categories',CategoryController::class)->except(['create']);
-
 Route::get('/blog/{slug}', [BlogController::class, 'getSingle'])->name('blog.single')->where('slug', '[\w\d\-\_]+');
 Route::get('/blog', [BlogController::class, 'getArchive'])->name('blog.index');
 

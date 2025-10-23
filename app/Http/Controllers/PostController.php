@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use App\Models\Category;
@@ -58,9 +57,7 @@ class PostController extends Controller implements HasMiddleware
         $post = new Post($validated);
         $post->save();
 
-        session::flash('success', 'Blog post successfully save!');
-
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->id)->with('success','Post Created Successfully!');
     }
 
     /**

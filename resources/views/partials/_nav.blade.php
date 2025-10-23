@@ -40,6 +40,12 @@
                             <a href="{{ route('categories.index') }}" class="dropdown-item">Categories</a>
                         </li>
                         <li>
+                            <a href="{{ route('tags.index') }}" class="dropdown-item">Tags</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
                             <button class="dropdown-item" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">Logout</button>
                         </li>

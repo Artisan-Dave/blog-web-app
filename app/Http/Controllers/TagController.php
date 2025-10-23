@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller implements HasMiddleware
+class TagController extends Controller implements HasMiddleware
 {
-    public static function middleware(): array
+     public static function middleware(): array
     {
         return [
             new Middleware('auth'),
@@ -22,9 +22,8 @@ class CategoryController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        $categories = Category::all();
-
-        return view('categories.index')->with('categories',$categories);
+        $tags = Tag::all();
+        return view('tags.index')->with('tags',$tags);
     }
 
     /**
@@ -33,13 +32,13 @@ class CategoryController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
         ]);
 
-        $category = new Category($validated);
-        $category->save();
+        $tag = new Tag($validated);
+        $tag->save();
 
-        return redirect()->back()->with('success','Category Created Successfully!');
+        return redirect(route('tags.index'))->with('success','Tag Created Successfully!');
     }
 
     /**
