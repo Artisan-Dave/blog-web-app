@@ -2,9 +2,9 @@
 
 @section('title','| Register')
 
-@section('stylesheets')
+@push('stylesheets')
     @vite('resources/css/parsley.css')
-@endsection
+@endpush
 
 @section('content')
 
@@ -39,6 +39,6 @@
 
 @endsection
 
-@section('scripts')
+@push('scripts')
     @vite(['resources/js/validation.js'])
-@endsection
+@endpush

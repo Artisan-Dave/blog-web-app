@@ -2,9 +2,13 @@
 
 @section('title', '| Create New Post')
 
-@section('stylesheets')
-    @vite('resources/css/parsley.css')
-@endsection
+@push('stylesheets')
+    @vite(['resources/css/parsley.css'])
+@endpush
+
+@push('stylesheets')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
 
 @section('content')
 
@@ -16,8 +20,9 @@
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" maxlength="255" >
-                   
+                    <input type="text" class="form-control" id="title" placeholder="Enter title" name="title"
+                        maxlength="255">
+
                 </div>
                 <div class="mb-3">
                     <label for="category_id" class="form-label">Category</label>
@@ -30,7 +35,16 @@
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Body</label>
-                    <textarea class="form-control" id="body" style="height: 100px" placeholder="Enter text" name="body" ></textarea>
+                    <textarea class="form-control" id="body" style="height: 100px" placeholder="Enter text" name="body"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="tags" class="form-label">Tags</label>
+                    <select class="tom-select" name="tags[]" multiple>
+                        <option value="AL">Alabama</option>
+                        <option value="WY">Wyoming</option>
+                        <option value="CA">California</option>
+                        <option value="TX">Texas</option>
+                    </select>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-success btn-lg ">Create New Post</button>
@@ -41,6 +55,10 @@
 
 @endsection
 
-@section('scripts')
-    @vite(['resources/js/validation.js'])
-@endsection
+@push('scripts')
+    @vite('resources/js/validation.js')
+@endpush
+
+@push('scripts')
+    @vite('resources/js/tom-select-init.js')
+@endpush

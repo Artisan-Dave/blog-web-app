@@ -2,9 +2,9 @@
 
 @section('title', '| Login')
 
-@section('stylesheets')
+@push('stylesheets')
     @vite('resources/css/parsley.css')
-@endsection
+@endpush
 
 @section('content')
 
@@ -40,3 +40,7 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    @vite(['resources/js/validation.js'])
+@endpush

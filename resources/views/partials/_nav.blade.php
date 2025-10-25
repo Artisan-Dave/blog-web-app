@@ -34,9 +34,6 @@
                             <a class="dropdown-item" href="{{ route('posts.index') }}">Posts</a>
                         </li>
                         <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
                             <a href="{{ route('categories.index') }}" class="dropdown-item">Categories</a>
                         </li>
                         <li>

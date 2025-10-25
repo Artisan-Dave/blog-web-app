@@ -2,9 +2,9 @@
 
 @section('title', '| All Posts')
 
-@section('stylesheets')
+@push('stylesheets')
     @vite('resources/css/styles.css')
-@endsection
+@endpush
 
 @section('content')
 

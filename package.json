@@ -18,7 +18,7 @@
     "dependencies": {
         "@popperjs/core": "^2.11.8",
         "bootstrap": "^5.3.8",
-        "jquery": "^3.7.1",
-        "parsleyjs": "^2.9.2"
+        "parsleyjs": "^2.9.2",
+        "tom-select": "^2.4.3"
     }
 }

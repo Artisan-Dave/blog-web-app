@@ -2,9 +2,9 @@
 
 @section('title', '| Edit Blog Post')
 
-@section('stylesheets')
+@push('stylesheets')
     @vite('resources/css/parsley.css')
-@endsection
+@endpush
 
 @section('content')
     <form method="POST" action="{{ route('posts.update', $post->id) }}">

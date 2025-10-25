@@ -4,9 +4,9 @@
 
 @section('content')
 
-@section('stylesheets')
+@push('stylesheets')
     @vite('resources/css/parsley.css')
-@endsection
+@endpush
 
     <div class="row">
         <div class="col-md-8">
@@ -53,6 +53,6 @@
 
 @endsection
 
-@section('scripts')
+@push('scripts')
     @vite(['resources/js/validation.js'])
-@endsection
+@endpush
