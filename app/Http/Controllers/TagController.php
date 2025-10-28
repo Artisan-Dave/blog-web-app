@@ -22,7 +22,7 @@ class TagController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        $tags = Tag::all();
+        $tags = Tag::paginate(10);
         return view('tags.index')->with('tags',$tags);
     }
 

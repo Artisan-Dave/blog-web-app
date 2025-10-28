@@ -1,5 +1,5 @@
 import TomSelect from "tom-select";
-import "tom-select/dist/css/tom-select.css";
+import "tom-select/dist/css/tom-select.bootstrap5.min.css";
 import "tom-select/dist/js/plugins/remove_button.js"; // ✅ add the remove button plugin
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             persist: false,
             create: false, // true = allow adding new items
             sortField: {
+                
                 field: "text",
                 direction: "asc",
             },
@@ -22,5 +23,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    console.log("✅ Tom Select with remove buttons initialized!");
 });

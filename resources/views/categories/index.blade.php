@@ -11,6 +11,9 @@
     <div class="row">
         <div class="col-md-8">
             <h1>Categories</h1>
+            <div class="pagination-container">
+                {{ $categories->links() }}
+            </div>
             <table class="table">
                 <thead>
                     <tr>

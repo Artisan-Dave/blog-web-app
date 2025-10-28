@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use App\Models\Tag;
 use App\Models\Category;
 use Illuminate\Support\Str;
 
@@ -37,8 +38,9 @@ class PostController extends Controller implements HasMiddleware
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('posts.create')->with('categories',$categories);
+        return view('posts.create', ['categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -46,67 +48,86 @@ class PostController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
+        // dd($request);
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|integer',
+            'tags' => 'nullable|array',
             'body' => 'required',
         ]);
 
-        // dd($validated);
+        $post = Post::create([
+            'title' => $validated['title'],
+            'category_id' => $validated['category_id'],
+            'body' => $validated['body'],
+        ]);
 
-        $post = new Post($validated);
-        $post->save();
+        if (!empty($validated['tags'])) {
+            $post->tags()->sync($validated['tags']);
+        }
 
-        return redirect()->route('posts.show', $post->id)->with('success','Post Created Successfully!');
+        return redirect()->route('posts.show', $post->id)->with('success', 'Post Created Successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
-        $post = Post::findOrFail($id);
-        return view('posts.show', compact('post'));
+        return view('posts.show',['post'=>$post]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
         $categories = Category::all();
-        return view('posts.edit', compact('post','categories'));
+        $tags = Tag::all();
+        return view('posts.edit', ['post'=>$post, 'categories'=>$categories, 'tags'=>$tags]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
         // dd('update method hit', $request->all());
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required|string',
-            'category_id' => 'required|integer'
+            'category_id' => 'required|integer',
+            'tags' => 'nullable|array',
+            'tags.*' => 'integer|exists:tags,id'
         ]);
 
-        $post = Post::findOrFail($id);
-        $post->update($validated);
+        // $post = Post::findOrFail($id);
+        $post->update([
+            'title' => $validated['title'],
+            'category_id' => $validated['category_id'],
+            'body' => $validated['body'],
+        ]);
 
-        return redirect()->route('posts.show', $post->id)->with('success','Post successfully updated.');
+        if(!empty($validated['tags'])){
+            $post->tags()->sync($validated['tags']);
+        }else{
+            $post->tags()->sync([]);
+        }
+
+        return redirect()->route('posts.show', $post->id)->with('success', 'Post successfully updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
 
         $post->delete();
-
-        return redirect()->route('posts.index')->with('success','Post Deleted Successfully');
+        return redirect()->route('posts.index')->with('success', 'Post Deleted Successfully');
     }
 }
