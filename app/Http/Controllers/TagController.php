@@ -44,25 +44,30 @@ class TagController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Tag $tag)
     {
-        //
+        return view('tags.show',['tag'=>$tag]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Tag $tag)
     {
-        //
+        return view('tags.edit',['tag'=>$tag]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Tag $tag)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255'
+        ]);
+
+        $tag->update($validated);
+        return redirect(route('tags.show',['tag'=>$tag]))->with('success','Tag Successfully Updated!');
     }
 
     /**

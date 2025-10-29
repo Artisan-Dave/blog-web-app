@@ -8,9 +8,13 @@
     @vite('resources/css/parsley.css')
 @endpush
 
+@push('stylesheets')
+    @vite('resources/css/styles.css')
+@endpush
+
     <div class="row">
         <div class="col-md-8">
-            <h1>Categories</h1>
+            <h1 class="text-center">Categories</h1>
             <div class="pagination-container">
                 {{ $categories->links() }}
             </div>

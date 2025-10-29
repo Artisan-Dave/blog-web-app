@@ -8,9 +8,13 @@
     @vite('resources/css/parsley.css')
 @endpush
 
+@push('stylesheets')
+    @vite('resources/css/styles.css')
+@endpush
+
     <div class="row">
         <div class="col-md-8">
-            <h1>Tags</h1>
+            <h1 class="text-center">Tags</h1>
             <div class="pagination-container">
                 {{ $tags->links() }}
             </div>
@@ -25,13 +29,11 @@
                     @forelse ($tags as $tag)
                     <tr>
                         <td>{{$tag->id}}</td>
-                        <td>{{$tag->name}}</td>
+                        <td><a href="{{ route('tags.show',$tag->id) }}">{{$tag->name}}</a></td>
                     </tr>
-                    
                     @empty
-                        <div class="textcenter">No Categories Created</div>
+                        <div class="textcenter">No Tag Created</div>
                     @endforelse
-                    
                 </tbody>
             </table>
         </div>
