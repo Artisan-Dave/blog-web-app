@@ -40,12 +40,12 @@
                     </div>
                     <div class="col-sm-6 d-grid gap-2">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-post-modal">
                             Delete
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="delete-post-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">

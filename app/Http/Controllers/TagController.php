@@ -73,8 +73,10 @@ class TagController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Tag $tag)
     {
-        //
+        $tag->posts()->detach();
+        $tag->delete();
+        return redirect(route('tags.index'))->with('success','Tag deleted successfully!');
     }
 }

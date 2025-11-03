@@ -104,7 +104,6 @@ class PostController extends Controller implements HasMiddleware
             'tags.*' => 'integer|exists:tags,id'
         ]);
 
-        // $post = Post::findOrFail($id);
         $post->update([
             'title' => $validated['title'],
             'category_id' => $validated['category_id'],
@@ -124,9 +123,8 @@ class PostController extends Controller implements HasMiddleware
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
-    {
-        // $post = Post::findOrFail($id);
-
+    { 
+        $post->tags()->detach();
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post Deleted Successfully');
     }
