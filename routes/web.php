@@ -45,6 +45,7 @@ Route::get('/blog', [BlogController::class, 'getArchive'])->name('blog.index');
 Route::get('/contact', [PagesController::class, 'getContact']);
 Route::get('/about', [PagesController::class, 'getAbout']);
 Route::get('/', [PagesController::class, 'getIndex']);
+Route::post('/contact',[PagesController::class,'postContact']);
 
 
 
