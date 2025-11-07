@@ -42,7 +42,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Body</label>
-                    <textarea class="form-control" id="body" style="height: 100px" placeholder="Enter text" name="body"></textarea>
+                    <textarea class="form-control" rows="5" id="body" style="height: 100px" placeholder="Enter text" name="body"></textarea>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-success btn-lg ">Create New Post</button>

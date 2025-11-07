@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
@@ -35,6 +36,9 @@ Route::get('/check', function () {
     });
 
 Route::resource('tags',TagController::class)->except(['create']);
+
+//Comments
+Route::post('comments/{post}',[CommentsController::class,'store'])->name('comments.store');
 
 //Categories
 Route::resource('categories',CategoryController::class)->except(['create']);
