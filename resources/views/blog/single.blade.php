@@ -4,6 +4,10 @@
     | {{ $post->title }}
 @endsection
 
+@push('stylesheets')
+    @vite(['resources/css/styles.css'])
+@endpush
+
 @section('content')
     <div class="row">
         <div class="col-md-8 offset-md-2 bg-light p-5">
@@ -17,10 +21,20 @@
 
     <div class="row mt-3">
         <div class="col-md-8 offset-md-2">
-            @foreach ($post->comments as $comment )
-                <div class="comment border rounded p-2 mb-3 bg-light">
-                    <p><strong>Name: </strong>{{ $comment->name }}</p>
-                    <p><strong>Comment:</strong><br> {{ $comment->comment }}</p><br>
+            <h3 class="comments-title"><span class="bi bi-chat-left-fill"></span>{{ $post->comments->count() }} Comments</h3>
+            @foreach ($post->comments as $comment)
+                <div class="comment">
+                    <div class="author-info">
+                        <img src="{{ $comment->gravatar_url }}" alt="{{ $comment->name }}" class="author-image">
+                        <div class="author-name">
+                            <h4>{{ $comment->name }}</h4>
+                            <p class="author-time">{{ $comment->created_at->diffForHumans() }}</p>
+                            
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        <p>{{ $comment->comment }}</p>
+                    </div>
                 </div>
             @endforeach
         </div>
