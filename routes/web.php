@@ -39,6 +39,9 @@ Route::resource('tags',TagController::class)->except(['create']);
 
 //Comments
 Route::post('comments/{post}',[CommentsController::class,'store'])->name('comments.store');
+Route::get('comments/{comment}/edit',[CommentsController::class,'edit'])->name('comments.edit');
+Route::put('comments/{comment}',[CommentsController::class,'update'])->name('comments.update');
+Route::delete('comments/{comment}',[CommentsController::class,'destroy'])->name('comments.delete');
 
 //Categories
 Route::resource('categories',CategoryController::class)->except(['create']);
