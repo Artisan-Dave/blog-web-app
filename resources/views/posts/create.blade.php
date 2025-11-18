@@ -10,6 +10,16 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
+@push('scripts')
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+    <!-- CKEditor Init -->
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#body'))
+            .catch(error => console.error(error));
+    </script>
+@endpush
+
 @section('content')
 
     <div class="row">
@@ -32,7 +42,7 @@
                         @endforeach
                     </select>
                 </div>
-                 <div class="mb-3">
+                <div class="mb-3">
                     <label for="tags" class="form-label">Tags</label>
                     <select class="tom-select" name="tags[]" multiple>
                         @foreach ($tags as $tag)
@@ -42,7 +52,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Body</label>
-                    <textarea class="form-control" rows="5" id="body" style="height: 100px" placeholder="Enter text" name="body"></textarea>
+                    <textarea class="form-control" rows="5" id="body" style="height: 100px" placeholder="Enter text"
+                        name="body"></textarea>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-success btn-lg ">Create New Post</button>
@@ -60,3 +71,6 @@
 @push('scripts')
     @vite('resources/js/tom-select-init.js')
 @endpush
+
+
+
