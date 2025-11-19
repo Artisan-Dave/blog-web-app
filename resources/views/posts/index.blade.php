@@ -45,7 +45,7 @@
                                 {{ $post->title }}
                             </td>
                             <td>
-                                {{ substr($post->body,0,50) }}{{ strlen($post->body) > 50 ? "..." : "" }}
+                                {{ substr(strip_tags($post->body),0,50) }}{{ strlen(strip_tags($post->body)) > 50 ? "..." : "" }}
                             </td>
                             <td>
                                 {{ $post->created_at->format('M j, Y g:i A') }}

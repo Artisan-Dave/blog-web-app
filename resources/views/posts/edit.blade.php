@@ -6,6 +6,16 @@
     @vite('resources/css/parsley.css')
 @endpush
 
+@push('scripts')
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+    <!-- CKEditor Init -->
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#body'))
+            .catch(error => console.error(error));
+    </script>
+@endpush
+
 @section('content')
     <form method="POST" action="{{ route('posts.update', $post->id) }}" validate>
         @csrf

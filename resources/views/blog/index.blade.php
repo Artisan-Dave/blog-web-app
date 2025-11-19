@@ -19,7 +19,7 @@
                     <h2>{{ $post->title }}</h2>
                     <h5>Published: {{ $post->created_at->format('M j, Y g:i A') }}</h5>
 
-                    <p>{{ substr($post->body,0,250) }}{{ strlen($post->body) > 250 ? "..." : "" }}</p>
+                    <p>{{ substr(strip_tags($post->body),0,250) }}{{ strlen(strip_tags($post->body)) > 250 ? "..." : "" }}</p>
                     <a href="{{ route('blog.single',$post->slug) }}" class="btn btn-primary">Read More</a>
                 </div>
                 <div class="">
