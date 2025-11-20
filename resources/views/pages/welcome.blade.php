@@ -7,7 +7,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <div class="bg-light mx-auto p-2">
+                <div class="bg-light mx-auto p-5">
                     <h1>Welcome to my Blog</h1>
                     <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod nobis non, corrupti deserunt repudiandae cupiditate soluta. Excepturi, corporis. Molestias, illo earum totam odit eum similique impedit aperiam libero quas.
                     </p>
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div><!-- end of row -->
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-md-8">
                 @foreach ($posts as $post )
 

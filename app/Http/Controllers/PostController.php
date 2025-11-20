@@ -9,6 +9,7 @@ use Illuminate\Routing\Controllers\Middleware;
 use App\Models\Tag;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Mews\Purifier\Facades\Purifier;
 
 class PostController extends Controller implements HasMiddleware
 {
@@ -60,7 +61,7 @@ class PostController extends Controller implements HasMiddleware
         $post = Post::create([
             'title' => $validated['title'],
             'category_id' => $validated['category_id'],
-            'body' => $validated['body'],
+            'body' => Purifier::clean($validated['body']),
         ]);
 
         if (!empty($validated['tags'])) {
@@ -98,7 +99,7 @@ class PostController extends Controller implements HasMiddleware
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'body' => 'required|string',
+            'body' => 'required',
             'category_id' => 'required|integer',
             'tags' => 'nullable|array',
             'tags.*' => 'integer|exists:tags,id'
@@ -107,7 +108,7 @@ class PostController extends Controller implements HasMiddleware
         $post->update([
             'title' => $validated['title'],
             'category_id' => $validated['category_id'],
-            'body' => $validated['body'],
+            'body' => Purifier::clean($validated['body']),
         ]);
 
         if(!empty($validated['tags'])){
