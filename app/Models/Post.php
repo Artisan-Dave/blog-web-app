@@ -12,6 +12,7 @@ class Post extends Model
         'body',
         'category_id',
         'slug',
+        'image',
     ];
 
     public function category(){

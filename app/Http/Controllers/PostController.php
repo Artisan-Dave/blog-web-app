@@ -10,6 +10,9 @@ use App\Models\Tag;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
+use Intervention\Image\Laravel\Facades\Image;
+
+
 
 class PostController extends Controller implements HasMiddleware
 {
@@ -56,6 +59,8 @@ class PostController extends Controller implements HasMiddleware
             'category_id' => 'required|integer',
             'tags' => 'nullable|array',
             'body' => 'required',
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+
         ]);
 
         $post = Post::create([
@@ -63,6 +68,19 @@ class PostController extends Controller implements HasMiddleware
             'category_id' => $validated['category_id'],
             'body' => Purifier::clean($validated['body']),
         ]);
+
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $path = public_path('images/' . $filename);
+
+            Image::read($request->file('featured_image'))
+                ->resize(800, 600)
+                ->save($path);
+
+            $post->update(['image' => $filename]);
+
+        }
 
         if (!empty($validated['tags'])) {
             $post->tags()->sync($validated['tags']);
@@ -76,7 +94,7 @@ class PostController extends Controller implements HasMiddleware
      */
     public function show(Post $post)
     {
-        return view('posts.show',['post'=>$post]);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
@@ -87,7 +105,7 @@ class PostController extends Controller implements HasMiddleware
         // $post = Post::findOrFail($id);
         $categories = Category::all();
         $tags = Tag::all();
-        return view('posts.edit', ['post'=>$post, 'categories'=>$categories, 'tags'=>$tags]);
+        return view('posts.edit', ['post' => $post, 'categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -111,9 +129,9 @@ class PostController extends Controller implements HasMiddleware
             'body' => Purifier::clean($validated['body']),
         ]);
 
-        if(!empty($validated['tags'])){
+        if (!empty($validated['tags'])) {
             $post->tags()->sync($validated['tags']);
-        }else{
+        } else {
             $post->tags()->sync([]);
         }
 
@@ -124,7 +142,7 @@ class PostController extends Controller implements HasMiddleware
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
-    { 
+    {
         $post->tags()->detach();
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post Deleted Successfully');

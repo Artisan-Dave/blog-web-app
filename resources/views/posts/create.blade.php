@@ -26,7 +26,7 @@
         <div class="col-md-8 offset-md-2">
             <h1>Create Post</h1>
             <hr>
-            <form method="POST" action="{{ route('posts.store') }}" class="validate">
+            <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data" validate>
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -49,6 +49,10 @@
                             <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                         @endforeach
                     </select>
+                </div>
+                 <div class="mb-3">
+                    <label for="featured_image" class="form-label">Upload Image</label>
+                    <input type="file" class="form-control" name="featured_image" id="featured_image">
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Body</label>
