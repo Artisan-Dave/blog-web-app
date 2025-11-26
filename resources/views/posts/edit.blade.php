@@ -17,7 +17,7 @@
 @endpush
 
 @section('content')
-    <form method="POST" action="{{ route('posts.update', $post->id) }}" validate>
+    <form method="POST" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data" validate>
         @csrf
         @method('PUT')
         <div class="row">
@@ -46,6 +46,10 @@
                             </option>
                         @endforeach
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label for="featured_image" class="form-label">Upload Image</label>
+                    <input type="file" class="form-control" name="featured_image" id="featured_image">
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Body</label>

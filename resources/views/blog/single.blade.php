@@ -11,7 +11,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-8 offset-md-2 bg-light p-5">
-            <img src="{{ asset('images/' . $post->image) }}" alt="Post Image" height="400" width="800">
+            <img src="{{ asset('images/' . $post->image) }}" alt="Post Image" height="400" width="800"/>
             <h1>{{ $post->title }}</h1>
             <p>{!! $post->body !!}</p>
             <hr>

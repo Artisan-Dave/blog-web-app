@@ -11,6 +11,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Facades\File;
 
 
 
@@ -120,20 +121,42 @@ class PostController extends Controller implements HasMiddleware
             'body' => 'required',
             'category_id' => 'required|integer',
             'tags' => 'nullable|array',
-            'tags.*' => 'integer|exists:tags,id'
+            'tags.*' => 'integer|exists:tags,id',
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $post->update([
+        // Base data
+        $data = [
             'title' => $validated['title'],
             'category_id' => $validated['category_id'],
             'body' => Purifier::clean($validated['body']),
-        ]);
+        ];
 
-        if (!empty($validated['tags'])) {
-            $post->tags()->sync($validated['tags']);
-        } else {
-            $post->tags()->sync([]);
+        if ($request->hasFile('featured_image')) {
+
+            $image = $request->file('featured_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $path = public_path('images/' . $filename);
+
+            Image::read($image)
+                ->resize(800, 600)
+                ->save($path);
+
+            // Delete old file
+            if ($post->image) {
+                $oldPath = public_path('images/' . $post->image);
+                if (File::exists($oldPath))
+                    File::delete($oldPath);
+            }
+
+            $data['image'] = $filename;
         }
+
+        // Single update
+        $post->update($data);
+
+        // Sync tags
+        $post->tags()->sync($validated['tags'] ?? []);
 
         return redirect()->route('posts.show', $post->id)->with('success', 'Post successfully updated.');
     }
@@ -144,6 +167,16 @@ class PostController extends Controller implements HasMiddleware
     public function destroy(Post $post)
     {
         $post->tags()->detach();
+
+        // Delete image file if exists
+        if ($post->image) {
+            $imagePath = public_path('images/' . $post->image);
+
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+        
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post Deleted Successfully');
     }
